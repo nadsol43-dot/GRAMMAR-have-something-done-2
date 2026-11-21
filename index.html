@@ -1,1138 +1,156 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Causative Form — Каузативная форма</title>
-<style>
-  @import url('https://cdn.jsdelivr.net/fontsource/fonts/inter@5.0.0/latin-400-500-600-700.css');
-  
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  :root {
-    --primary: #8b5cf6;
-    --primary-dark: #7c3aed;
-    --secondary: #6d28d9;
-    --accent: #f59e0b;
-    --bg: #0f172a;
-    --bg-light: #1e293b;
-    --card: #1e293b;
-    --card-hover: #334155;
-    --text: #f1f5f9;
-    --text-muted: #94a3b8;
-    --success: #10b981;
-    --danger: #ef4444;
-    --border: #334155;
-  }
-  
-  body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-  
-  /* Hero */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #0f172a 0%, #4c1d95 50%, #0f172a 100%);
-  }
-  
-  .hero::before {
-    content: '';
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%);
-    top: -200px;
-    right: -200px;
-    animation: pulse 4s ease-in-out infinite;
-  }
-  
-  .hero::after {
-    content: '';
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
-    bottom: -150px;
-    left: -150px;
-    animation: pulse 5s ease-in-out infinite reverse;
-  }
-  
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.2); opacity: 0.8; }
-  }
-  
-  .hero-content {
-    text-align: center;
-    z-index: 2;
-    padding: 2rem;
-    max-width: 900px;
-  }
-  
-  .hero-badge {
-    display: inline-block;
-    background: rgba(139,92,246,0.15);
-    border: 1px solid var(--primary);
-    color: var(--primary);
-    padding: 0.5rem 1.2rem;
-    border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    margin-bottom: 1.5rem;
-    animation: fadeDown 0.8s ease;
-  }
-  
-  .hero h1 {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, #f1f5f9 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: fadeDown 1s ease;
-  }
-  
-  .hero-sub {
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    margin-bottom: 2.5rem;
-    animation: fadeDown 1.2s ease;
-  }
-  
-  .hero-formula {
-    background: rgba(30,41,59,0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.5rem 2rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    animation: fadeUp 1.4s ease;
-  }
-  
-  .formula-part {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: #0f172a;
-    padding: 0.7rem 1.2rem;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
-  
-  .formula-op {
-    color: var(--text-muted);
-    font-size: 1.5rem;
-    font-weight: 300;
-  }
-  
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--text-muted);
-    animation: bounce 2s infinite;
-    font-size: 1.5rem;
-  }
-  
-  @keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(10px); }
-  }
-  
-  /* Nav */
-  nav {
-    position: sticky;
-    top: 0;
-    background: rgba(15,23,42,0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-    z-index: 100;
-    padding: 1rem 0;
-  }
-  
-  .nav-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    gap: 0.5rem;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  
-  .nav-inner::-webkit-scrollbar { display: none; }
-  
-  .nav-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: all 0.2s;
-    font-family: inherit;
-  }
-  
-  .nav-btn:hover, .nav-btn.active {
-    background: var(--primary);
-    color: #0f172a;
-    border-color: var(--primary);
-  }
-  
-  /* Sections */
-  section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 5rem 2rem;
-  }
-  
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .section-num {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: #0f172a;
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
-  
-  .section-subtitle {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    margin-bottom: 3rem;
-  }
-  
-  /* Usage Card */
-  .usage-card {
-    background: var(--card);
-    border-radius: 20px;
-    padding: 2.5rem;
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .usage-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-  }
-  
-  .usage-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--primary);
-  }
-  
-  .usage-desc {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    line-height: 1.8;
-  }
-  
-  .usage-example {
-    background: rgba(15,23,42,0.6);
-    padding: 1.5rem;
-    border-radius: 12px;
-    border-left: 4px solid var(--accent);
-    margin-bottom: 1rem;
-  }
-  
-  .usage-example .sentence {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  
-  .usage-example .note {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-  }
-  
-  /* Tense Table */
-  .tense-table {
-    background: var(--card);
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  }
-  
-  .tense-header {
-    display: grid;
-    grid-template-columns: 1.2fr 1.4fr 1.4fr;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: #0f172a;
-    font-weight: 700;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-  }
-  
-  .tense-row {
-    display: grid;
-    grid-template-columns: 1.2fr 1.4fr 1.4fr;
-    padding: 1.2rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    transition: all 0.3s;
-    cursor: pointer;
-    align-items: center;
-  }
-  
-  .tense-row:last-child { border-bottom: none; }
-  
-  .tense-row:hover {
-    background: var(--card-hover);
-    transform: translateX(5px);
-  }
-  
-  .tense-name {
-    font-weight: 600;
-    color: var(--primary);
-    font-size: 0.95rem;
-  }
-  
-  .tense-active, .tense-passive {
-    font-size: 0.95rem;
-  }
-  
-  .tense-active em, .tense-passive em {
-    color: var(--accent);
-    font-style: normal;
-    font-weight: 600;
-  }
-  
-  /* Interactive Builder */
-  .builder {
-    background: var(--card);
-    border-radius: 20px;
-    padding: 2rem;
-    border: 1px solid var(--border);
-  }
-  
-  .builder-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: rgba(15,23,42,0.6);
-    border-radius: 12px;
-  }
-  
-  .builder-select {
-    background: var(--bg);
-    color: var(--text);
-    border: 2px solid var(--border);
-    padding: 0.7rem 1rem;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-    cursor: pointer;
-    min-width: 150px;
-  }
-  
-  .builder-select:focus {
-    outline: none;
-    border-color: var(--primary);
-  }
-  
-  .builder-result {
-    background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(245,158,11,0.1));
-    border: 2px dashed var(--primary);
-    border-radius: 12px;
-    padding: 1.5rem;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: 600;
-    min-height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Structure Diagram */
-  .structure-container {
-    background: var(--card);
-    border-radius: 20px;
-    padding: 3rem 2rem;
-    border: 1px solid var(--border);
-  }
-  
-  .structure-diagram {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-  
-  .structure-box {
-    background: rgba(139,92,246,0.15);
-    border: 2px solid var(--primary);
-    border-radius: 12px;
-    padding: 1.2rem 1.5rem;
-    text-align: center;
-    min-width: 140px;
-    transition: all 0.3s;
-  }
-  
-  .structure-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(139,92,246,0.3);
-  }
-  
-  .structure-box .label {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-bottom: 0.3rem;
-    font-weight: 600;
-  }
-  
-  .structure-box .value {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--primary);
-  }
-  
-  .structure-arrow {
-    color: var(--primary);
-    font-size: 2rem;
-    font-weight: 300;
-  }
-  
-  /* Examples Grid */
-  .examples-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .example-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.8rem;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .example-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--primary), var(--accent));
-  }
-  
-  .example-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary);
-    box-shadow: 0 20px 40px rgba(139,92,246,0.15);
-  }
-  
-  .example-tense {
-    font-size: 0.85rem;
-    color: var(--primary);
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 0.5rem;
-  }
-  
-  .example-sentence {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.8rem;
-    line-height: 1.5;
-  }
-  
-  .example-meaning {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-style: italic;
-  }
-  
-  /* Quiz */
-  .quiz-container {
-    background: var(--card);
-    border-radius: 20px;
-    padding: 2.5rem;
-    border: 1px solid var(--border);
-  }
-  
-  .quiz-progress {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-  }
-  
-  .quiz-dot {
-    flex: 1;
-    height: 6px;
-    background: var(--border);
-    border-radius: 3px;
-    transition: all 0.3s;
-  }
-  
-  .quiz-dot.done { background: var(--success); }
-  .quiz-dot.current { background: var(--primary); }
-  
-  .quiz-question {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    min-height: 60px;
-  }
-  
-  .quiz-options {
-    display: grid;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .quiz-option {
-    background: rgba(15,23,42,0.6);
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 1rem;
-    font-family: inherit;
-    color: var(--text);
-    text-align: left;
-  }
-  
-  .quiz-option:hover {
-    border-color: var(--primary);
-    background: rgba(139,92,246,0.1);
-  }
-  
-  .quiz-option.correct {
-    border-color: var(--success);
-    background: rgba(16,185,129,0.15);
-  }
-  
-  .quiz-option.wrong {
-    border-color: var(--danger);
-    background: rgba(239,68,68,0.15);
-  }
-  
-  .quiz-option:disabled { cursor: not-allowed; }
-  
-  .quiz-feedback {
-    padding: 1rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    display: none;
-  }
-  
-  .quiz-feedback.show { display: block; }
-  .quiz-feedback.correct { background: rgba(16,185,129,0.15); border: 1px solid var(--success); }
-  .quiz-feedback.wrong { background: rgba(239,68,68,0.15); border: 1px solid var(--danger); }
-  
-  .quiz-next {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: #0f172a;
-    border: none;
-    padding: 0.9rem 2rem;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    font-family: inherit;
-    transition: all 0.2s;
-  }
-  
-  .quiz-next:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(139,92,246,0.4); }
-  .quiz-next:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  
-  .quiz-score {
-    text-align: center;
-    padding: 2rem;
-  }
-  
-  .quiz-score-num {
-    font-size: 4rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 3rem 2rem;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border);
-    margin-top: 3rem;
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .tense-header, .tense-row { grid-template-columns: 1fr; gap: 0.5rem; }
-    .tense-header { display: none; }
-    .tense-row { 
-      grid-template-columns: 1fr; 
-      gap: 0.3rem;
-      padding: 1rem;
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Визуальная памятка по английской конструкции have something done">
+  <title>Have something done — визуальная памятка</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      background: #eaf0ef;
+      font-family: Arial, sans-serif;
+      padding: 24px;
     }
-    .tense-name { margin-bottom: 0.3rem; }
-    .section-title { font-size: 1.8rem; }
-    .structure-diagram { flex-direction: column; }
-  }
-  
-  .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease;
-  }
-  
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
+    main {
+      width: min(100%, 1440px);
+      margin: 0 auto;
+      background: #f4f7f6;
+      box-shadow: 0 12px 40px rgba(23, 50, 77, .10);
+    }
+    svg { display: block; width: 100%; height: auto; }
+    @media (max-width: 600px) {
+      body { padding: 0; }
+      main { box-shadow: none; }
+    }
+  </style>
 </head>
 <body>
+  <main aria-label="Визуальная памятка по английской грамматике">
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1200" viewBox="0 0 1440 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Have something done — визуальная памятка</title>
+  <desc id="desc">Схема английской конструкции have something done с формулой, примерами про ремонт машины и доставку компьютера, а также сравнением с активным залогом.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#17324d" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#62b8ac"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="1200" fill="#f4f7f6"/>
+  <circle cx="1330" cy="90" r="120" fill="#e5f2ef" opacity=".72"/>
+  <circle cx="1375" cy="180" r="42" fill="#d4ebe6" opacity=".8"/>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-badge"> ENGLISH GRAMMAR</div>
-    <h1>Causative Form</h1>
-    <p class="hero-sub">Каузативная форма — когда кто-то делает что-то для вас</p>
-    <div class="hero-formula">
-      <div class="formula-part">have</div>
-      <span class="formula-op">+</span>
-      <div class="formula-part">Object</div>
-      <span class="formula-op">+</span>
-      <div class="formula-part">V3 / -ed</div>
-    </div>
-  </div>
-  <div class="scroll-indicator">↓</div>
-</section>
+  <!-- Header -->
+  <rect x="80" y="54" width="186" height="34" rx="17" fill="#dcefeb"/>
+  <text x="173" y="77" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5" fill="#176f69">ENGLISH GRAMMAR</text>
+  <text x="80" y="151" font-family="Arial, sans-serif" font-size="54" font-weight="800" letter-spacing="1" fill="#17324d">HAVE SOMETHING DONE</text>
+  <text x="82" y="198" font-family="Arial, sans-serif" font-size="24" fill="#526875">Вы организуете услугу — работу обычно выполняет кто-то другой.</text>
+  <rect x="1105" y="118" width="245" height="50" rx="25" fill="#fff0cf"/>
+  <text x="1227" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#785723">«СДЕЛАТЬ ДЛЯ СЕБЯ»</text>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <button class="nav-btn active" onclick="scrollTo2('usage')">📖 Употребление</button>
-    <button class="nav-btn" onclick="scrollTo2('structure')">🔧 Структура</button>
-    <button class="nav-btn" onclick="scrollTo2('builder')">⚙️ Конструктор</button>
-    <button class="nav-btn" onclick="scrollTo2('tenses')"> Времена</button>
-    <button class="nav-btn" onclick="scrollTo2('examples')"> Примеры</button>
-    <button class="nav-btn" onclick="scrollTo2('quiz')"> Тест</button>
-  </div>
-</nav>
+  <!-- Formula card -->
+  <rect x="80" y="232" width="1280" height="218" rx="28" fill="#17324d" filter="url(#shadow)"/>
+  <text x="112" y="273" font-family="Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="1.7" fill="#9ecac4">ФОРМУЛА</text>
+  <text x="1320" y="273" text-anchor="end" font-family="Arial, sans-serif" font-size="15" fill="#b6c8d2">подлежащее + have + объект + V3</text>
 
-<!-- USAGE -->
-<section id="usage" class="fade-in">
-  <h2 class="section-title"><span class="section-num">1</span> Когда используется?</h2>
-  <p class="section-subtitle">Ситуации для Causative Form</p>
-  
-  <div class="usage-card">
-    <div class="usage-title">Основное значение</div>
-    <div class="usage-desc">
-      Конструкция <b>have + object + V3</b> используется для обозначения действия, 
-      выполняемого кем-либо для лица, обозначенного подлежащим. Мы не делаем это сами — 
-      мы организуем, чтобы это сделал кто-то другой (обычно профессионал).
-    </div>
-    
-    <div class="usage-example">
-      <div class="sentence">They <b>are having their computer delivered</b> tomorrow.</div>
-      <div class="note">💡 Исполнитель не упоминается — это неважно или понятно из контекста</div>
-    </div>
-    
-    <div class="usage-example">
-      <div class="sentence">Tom <b>has had his car repaired</b>.</div>
-      <div class="note">💡 Очевидно, что механик починил автомобиль Тома (не сам Том)</div>
-    </div>
-    
-    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(139,92,246,0.1); border-radius: 12px; border-left: 4px solid var(--primary);">
-      <div style="font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;">Ключевая идея:</div>
-      <div style="color: var(--text-muted);">
-        Подлежащее <b>не выполняет действие само</b>, а организует его выполнение через другого человека (обычно специалиста).
-      </div>
-    </div>
-  </div>
-</section>
+  <rect x="112" y="294" width="230" height="76" rx="16" fill="#294660"/>
+  <text x="227" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="800" fill="#ffffff">ПОДЛЕЖАЩЕЕ</text>
+  <text x="227" y="353" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#c7d6de">кто заказывает?</text>
 
-<!-- STRUCTURE -->
-<section id="structure" class="fade-in">
-  <h2 class="section-title"><span class="section-num">2</span> Структура конструкции</h2>
-  <p class="section-subtitle">Как строится Causative Form</p>
-  
-  <div class="structure-container">
-    <div class="structure-diagram">
-      <div class="structure-box">
-        <div class="label">Подлежащее</div>
-        <div class="value">She</div>
-      </div>
-      <div class="structure-arrow">+</div>
-      <div class="structure-box">
-        <div class="label">have (в нужном времени)</div>
-        <div class="value">has</div>
-      </div>
-      <div class="structure-arrow">+</div>
-      <div class="structure-box">
-        <div class="label">Прямое дополнение</div>
-        <div class="value">her room</div>
-      </div>
-      <div class="structure-arrow">+</div>
-      <div class="structure-box">
-        <div class="label">3-я форма глагола (V3)</div>
-        <div class="value">painted</div>
-      </div>
-    </div>
-    
-    <div style="text-align: center; font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 2rem 0;">
-      She has her room painted.
-    </div>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 2rem;">
-      <div style="background: rgba(139,92,246,0.1); padding: 1.2rem; border-radius: 12px; border-left: 4px solid var(--primary);">
-        <div style="font-weight: 700; color: var(--primary); margin-bottom: 0.3rem;">have меняется по времени</div>
-        <div style="font-size: 0.9rem; color: var(--text-muted);">has, had, is having, will have, etc.</div>
-      </div>
-      <div style="background: rgba(245,158,11,0.1); padding: 1.2rem; border-radius: 12px; border-left: 4px solid var(--accent);">
-        <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.3rem;">Object — что делают</div>
-        <div style="font-size: 0.9rem; color: var(--text-muted);">her room, the car, the computer</div>
-      </div>
-      <div style="background: rgba(16,185,129,0.1); padding: 1.2rem; border-radius: 12px; border-left: 4px solid var(--success);">
-        <div style="font-weight: 700; color: var(--success); margin-bottom: 0.3rem;">V3 — действие</div>
-        <div style="font-size: 0.9rem; color: var(--text-muted);">painted, repaired, delivered</div>
-      </div>
-    </div>
-  </div>
-</section>
+  <text x="366" y="344" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="500" fill="#72c6bb">+</text>
 
-<!-- BUILDER -->
-<section id="builder" class="fade-in">
-  <h2 class="section-title"><span class="section-num">3</span> Интерактивный конструктор</h2>
-  <p class="section-subtitle">Соберите предложение в Causative Form</p>
-  
-  <div class="builder">
-    <div class="builder-row">
-      <label style="color: var(--text-muted); font-weight: 600;">Подлежащее:</label>
-      <select class="builder-select" id="bSubject">
-        <option value="She">She</option>
-        <option value="He">He</option>
-        <option value="They">They</option>
-        <option value="Tom">Tom</option>
-        <option value="We">We</option>
-      </select>
-      
-      <label style="color: var(--text-muted); font-weight: 600;">Время:</label>
-      <select class="builder-select" id="bTense">
-        <option value="Present Simple">Present Simple</option>
-        <option value="Present Continuous">Present Continuous</option>
-        <option value="Past Simple">Past Simple</option>
-        <option value="Past Continuous">Past Continuous</option>
-        <option value="Present Perfect">Present Perfect</option>
-        <option value="Past Perfect">Past Perfect</option>
-        <option value="Future Simple">Future Simple</option>
-      </select>
-      
-      <label style="color: var(--text-muted); font-weight: 600;">Объект:</label>
-      <select class="builder-select" id="bObject">
-        <option value="her room">her room</option>
-        <option value="his car">his car</option>
-        <option value="their computer">their computer</option>
-        <option value="the house">the house</option>
-        <option value="my hair">my hair</option>
-      </select>
-      
-      <label style="color: var(--text-muted); font-weight: 600;">Глагол:</label>
-      <select class="builder-select" id="bVerb">
-        <option value="paint|painted">paint</option>
-        <option value="repair|repaired">repair</option>
-        <option value="deliver|delivered">deliver</option>
-        <option value="build|built">build</option>
-        <option value="cut|cut">cut</option>
-      </select>
-    </div>
-    <div class="builder-result" id="builderResult">She has her room painted.</div>
-  </div>
-</section>
+  <rect x="393" y="294" width="205" height="76" rx="16" fill="#287d79"/>
+  <text x="495" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" font-weight="800" fill="#ffffff">HAVE</text>
+  <text x="495" y="353" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#d8f0ec">форма меняется</text>
 
-<!-- TENSES -->
-<section id="tenses" class="fade-in">
-  <h2 class="section-title"><span class="section-num">4</span> Таблица времён</h2>
-  <p class="section-subtitle">Как меняется have в разных временах</p>
-  
-  <div class="tense-table">
-    <div class="tense-header">
-      <div>Время</div>
-      <div>Active Voice</div>
-      <div>Causative (Passive)</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Present Simple</div>
-      <div class="tense-active">She <em>p</em>aints her room.</div>
-      <div class="tense-passive">She <em>has</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Present Continuous</div>
-      <div class="tense-active">She <em>is painting</em> her room.</div>
-      <div class="tense-passive">She <em>is having</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Past Simple</div>
-      <div class="tense-active">She <em>painted</em> her room.</div>
-      <div class="tense-passive">She <em>had</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Past Continuous</div>
-      <div class="tense-active">She <em>was painting</em> her room.</div>
-      <div class="tense-passive">She <em>was having</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Present Perfect</div>
-      <div class="tense-active">She <em>has painted</em> her room.</div>
-      <div class="tense-passive">She <em>has had</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Past Perfect</div>
-      <div class="tense-active">She <em>had painted</em> her room.</div>
-      <div class="tense-passive">She <em>had had</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Present Perfect Continuous</div>
-      <div class="tense-active">She <em>has been painting</em> her room.</div>
-      <div class="tense-passive">She <em>has been having</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Past Perfect Continuous</div>
-      <div class="tense-active">She <em>had been painting</em> her room.</div>
-      <div class="tense-passive">She <em>had been having</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Future Simple</div>
-      <div class="tense-active">She <em>will paint</em> her room.</div>
-      <div class="tense-passive">She <em>will have</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Infinitive</div>
-      <div class="tense-active">She wants <em>to paint</em> her room.</div>
-      <div class="tense-passive">She wants <em>to have</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">-ing form</div>
-      <div class="tense-active">She likes <em>painting</em> her room.</div>
-      <div class="tense-passive">She likes <em>having</em> her room painted.</div>
-    </div>
-    <div class="tense-row">
-      <div class="tense-name">Modal Verbs</div>
-      <div class="tense-active">She <em>should paint</em> her room.</div>
-      <div class="tense-passive">She <em>should have</em> her room painted.</div>
-    </div>
-  </div>
-</section>
+  <text x="623" y="344" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="500" fill="#72c6bb">+</text>
 
-<!-- EXAMPLES -->
-<section id="examples" class="fade-in">
-  <h2 class="section-title"><span class="section-num">5</span> Примеры в контексте</h2>
-  <p class="section-subtitle">Реальные ситуации использования</p>
-  
-  <div class="examples-grid">
-    <div class="example-card">
-      <div class="example-tense">PRESENT SIMPLE</div>
-      <div class="example-sentence">I <b>have my hair cut</b> every month.</div>
-      <div class="example-meaning">Я стригусь каждый месяц (у парикмахера).</div>
-    </div>
-    
-    <div class="example-card">
-      <div class="example-tense">PAST SIMPLE</div>
-      <div class="example-sentence">They <b>had their house painted</b> last summer.</div>
-      <div class="example-meaning">Они покрасили дом прошлым летом (наняли маляров).</div>
-    </div>
-    
-    <div class="example-card">
-      <div class="example-tense">FUTURE SIMPLE</div>
-      <div class="example-sentence">We <b>will have the computer repaired</b> tomorrow.</div>
-      <div class="example-meaning">Мы отдадим компьютер в ремонт завтра.</div>
-    </div>
-    
-    <div class="example-card">
-      <div class="example-tense">PRESENT CONTINUOUS</div>
-      <div class="example-sentence">She <b>is having her car serviced</b> right now.</div>
-      <div class="example-meaning">Она сейчас обслуживает машину (на СТО).</div>
-    </div>
-    
-    <div class="example-card">
-      <div class="example-tense">PRESENT PERFECT</div>
-      <div class="example-sentence">He <b>has had his eyes tested</b>.</div>
-      <div class="example-meaning">Он проверил зрение (у офтальмолога).</div>
-    </div>
-    
-    <div class="example-card">
-      <div class="example-tense">MODAL VERB</div>
-      <div class="example-sentence">You <b>should have your teeth checked</b>.</div>
-      <div class="example-meaning">Тебе следует проверить зубы (у стоматолога).</div>
-    </div>
-  </div>
-</section>
+  <rect x="650" y="294" width="225" height="76" rx="16" fill="#294660"/>
+  <text x="762" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" font-weight="800" fill="#ffffff">OBJECT</text>
+  <text x="762" y="353" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#c7d6de">что / кого?</text>
 
-<!-- QUIZ -->
-<section id="quiz" class="fade-in">
-  <h2 class="section-title"><span class="section-num">6</span> Проверь себя</h2>
-  <p class="section-subtitle">Мини-тест из 5 вопросов</p>
-  
-  <div class="quiz-container">
-    <div class="quiz-progress" id="quizProgress"></div>
-    <div id="quizContent"></div>
-  </div>
-</section>
+  <text x="900" y="344" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="500" fill="#72c6bb">+</text>
 
-<footer>
-  <div style="font-size: 1.5rem; margin-bottom: 0.5rem;"></div>
-  <div style="font-weight: 600;">Causative Form — Каузативная форма</div>
-  <div style="font-size: 0.9rem; margin-top: 0.5rem;">Интерактивное руководство по английской грамматике</div>
-</footer>
+  <rect x="927" y="294" width="245" height="76" rx="16" fill="#f1c76e"/>
+  <text x="1049" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" font-weight="800" fill="#17324d">V3</text>
+  <text x="1049" y="353" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#4b5360">past participle</text>
 
-<script>
-// Navigation
-function scrollTo2(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-}
+  <path d="M1195 332 H1296" fill="none" stroke="#62b8ac" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="1245" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#b6c8d2">РЕЗУЛЬТАТ</text>
+  <text x="112" y="414" font-family="Arial, sans-serif" font-size="17" fill="#d3dfe5">Например: arrange a repair → организовать ремонт. Сам исполнитель обычно не важен.</text>
 
-// Builder
-const builderData = {
-  'Present Simple': { be: ['has','has','have','has','have'], v3pos: 2 },
-  'Present Continuous': { be: ['is having','is having','are having','is having','are having'], v3pos: 2 },
-  'Past Simple': { be: ['had','had','had','had','had'], v3pos: 2 },
-  'Past Continuous': { be: ['was having','was having','were having','was having','were having'], v3pos: 2 },
-  'Present Perfect': { be: ['has had','has had','have had','has had','have had'], v3pos: 2 },
-  'Past Perfect': { be: ['had had','had had','had had','had had','had had'], v3pos: 2 },
-  'Future Simple': { be: ['will have','will have','will have','will have','will have'], v3pos: 2 }
-};
+  <!-- Example card 1 -->
+  <rect x="80" y="478" width="625" height="390" rx="26" fill="#ffffff" filter="url(#shadow)"/>
+  <rect x="110" y="505" width="34" height="34" rx="11" fill="#dcefeb"/>
+  <text x="127" y="529" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#176f69">01</text>
+  <text x="158" y="530" font-family="Arial, sans-serif" font-size="19" font-weight="800" letter-spacing=".6" fill="#526875">РЕМОНТ АВТОМОБИЛЯ</text>
 
-function updateBuilder() {
-  const subj = document.getElementById('bSubject').value;
-  const tense = document.getElementById('bTense').value;
-  const obj = document.getElementById('bObject').value;
-  const verbParts = document.getElementById('bVerb').value.split('|');
-  
-  const v3 = verbParts[1];
-  const subjIdx = ['She','He','They','Tom','We'].indexOf(subj);
-  const beForm = builderData[tense].be[subjIdx];
-  
-  let result = `${subj} ${beForm} ${obj} ${v3}`;
-  result += '.';
-  
-  document.getElementById('builderResult').textContent = result;
-}
+  <text x="110" y="590" font-family="Arial, sans-serif" font-size="29" font-weight="700">
+    <tspan fill="#17324d">Tom </tspan><tspan fill="#7960a8">has </tspan><tspan fill="#287d79">had </tspan><tspan fill="#c87540">his car </tspan><tspan fill="#287d79">repaired.</tspan>
+  </text>
+  <line x1="110" y1="606" x2="675" y2="606" stroke="#e9efed" stroke-width="2"/>
 
-['bSubject','bTense','bObject','bVerb'].forEach(id => {
-  document.getElementById(id).addEventListener('change', updateBuilder);
-});
+  <rect x="110" y="624" width="565" height="76" rx="16" fill="#eef7f5"/>
+  <text x="132" y="651" font-family="Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="1.2" fill="#287d79">СМЫСЛ</text>
+  <text x="132" y="680" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#17324d">Том организовал ремонт машины.</text>
 
-// Quiz
-const quizQuestions = [
-  {
-    q: 'Выберите правильную форму Causative: "She ___ her car repaired last week."',
-    options: ['has', 'had', 'is having', 'will have'],
-    correct: 1,
-    explanation: 'Past Simple Causative = had + object + V3. "had" — правильно для прошедшего времени.'
-  },
-  {
-    q: 'Что означает предложение "I have my hair cut every month"?',
-    options: [
-      'Я сам стригу волосы каждый месяц',
-      'Мне стригут волосы каждый месяц (парикмахер)',
-      'Я буду стричь волосы',
-      'Я стриг волосы'
-    ],
-    correct: 1,
-    explanation: 'Causative Form означает, что действие выполняет кто-то другой (профессионал), а не подлежащее.'
-  },
-  {
-    q: 'Выберите правильный вариант: "They ___ their house painted next year."',
-    options: ['have', 'had', 'will have', 'are having'],
-    correct: 2,
-    explanation: 'Future Simple Causative = will have + object + V3. "will have" — правильно для будущего времени.'
-  },
-  {
-    q: 'Какое предложение построено правильно?',
-    options: [
-      'She has painted her room.',
-      'She has her room painted.',
-      'She has her room paint.',
-      'She has her room painting.'
-    ],
-    correct: 1,
-    explanation: 'Правильная структура: have + object + V3 (3-я форма глагола). "has her room painted" — верно.'
-  },
-  {
-    q: 'В каком времени используется "is having"?',
-    options: ['Present Simple', 'Present Continuous', 'Past Simple', 'Future Simple'],
-    correct: 1,
-    explanation: '"is having" — это форма Present Continuous от глагола have в Causative конструкции.'
-  }
-];
+  <text x="110" y="735" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#17324d">Разбираем форму:</text>
+  <rect x="110" y="751" width="250" height="48" rx="12" fill="#f1edfa"/>
+  <text x="126" y="781" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#72559b">has</text>
+  <text x="164" y="781" font-family="Arial, sans-serif" font-size="14" fill="#4f5d68">вспомогательный have</text>
+  <rect x="374" y="751" width="301" height="48" rx="12" fill="#e6f4f1"/>
+  <text x="390" y="781" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#176f69">had</text>
+  <text x="430" y="781" font-family="Arial, sans-serif" font-size="14" fill="#4f5d68">have в форме V3</text>
 
-let currentQ = 0;
-let score = 0;
-let answered = false;
+  <circle cx="120" cy="833" r="7" fill="#f1c76e"/>
+  <text x="139" y="839" font-family="Arial, sans-serif" font-size="16" fill="#526875">Ремонт выполняет механик, а не Том.</text>
 
-function renderQuiz() {
-  const progressHtml = quizQuestions.map((_, i) => {
-    let cls = 'quiz-dot';
-    if (i < currentQ) cls += ' done';
-    else if (i === currentQ) cls += ' current';
-    return `<div class="${cls}"></div>`;
-  }).join('');
-  document.getElementById('quizProgress').innerHTML = progressHtml;
-  
-  if (currentQ >= quizQuestions.length) {
-    const pct = Math.round((score / quizQuestions.length) * 100);
-    let msg = '';
-    if (pct === 100) msg = '🏆 Отлично! Вы мастер Causative Form!';
-    else if (pct >= 60) msg = ' Хороший результат!';
-    else msg = '📚 Стоит повторить материал.';
-    
-    document.getElementById('quizContent').innerHTML = `
-      <div class="quiz-score">
-        <div class="quiz-score-num">${score}/${quizQuestions.length}</div>
-        <div style="font-size: 1.2rem; margin: 1rem 0;">${pct}% правильных ответов</div>
-        <div style="color: var(--text-muted); margin-bottom: 2rem;">${msg}</div>
-        <button class="quiz-next" onclick="resetQuiz()">🔄 Пройти ещё раз</button>
-      </div>
-    `;
-    return;
-  }
-  
-  const q = quizQuestions[currentQ];
-  answered = false;
-  
-  document.getElementById('quizContent').innerHTML = `
-    <div class="quiz-question">${q.q}</div>
-    <div class="quiz-options">
-      ${q.options.map((opt, i) => `
-        <button class="quiz-option" onclick="checkAnswer(${i})">${opt}</button>
-      `).join('')}
-    </div>
-    <div class="quiz-feedback" id="quizFeedback"></div>
-    <button class="quiz-next" id="quizNextBtn" onclick="nextQuestion()" disabled>Далее →</button>
-  `;
-}
+  <!-- Example card 2 -->
+  <rect x="735" y="478" width="625" height="390" rx="26" fill="#ffffff" filter="url(#shadow)"/>
+  <rect x="765" y="505" width="34" height="34" rx="11" fill="#fff0cf"/>
+  <text x="782" y="529" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#9a7025">02</text>
+  <text x="813" y="530" font-family="Arial, sans-serif" font-size="19" font-weight="800" letter-spacing=".6" fill="#526875">ДОСТАВКА КОМПЬЮТЕРА</text>
 
-function checkAnswer(idx) {
-  if (answered) return;
-  answered = true;
-  
-  const q = quizQuestions[currentQ];
-  const buttons = document.querySelectorAll('.quiz-option');
-  buttons.forEach((btn, i) => {
-    btn.disabled = true;
-    if (i === q.correct) btn.classList.add('correct');
-    if (i === idx && i !== q.correct) btn.classList.add('wrong');
-  });
-  
-  const fb = document.getElementById('quizFeedback');
-  if (idx === q.correct) {
-    score++;
-    fb.className = 'quiz-feedback show correct';
-    fb.innerHTML = `✅ <b>Правильно!</b> ${q.explanation}`;
-  } else {
-    fb.className = 'quiz-feedback show wrong';
-    fb.innerHTML = `❌ <b>Неверно.</b> ${q.explanation}`;
-  }
-  
-  document.getElementById('quizNextBtn').disabled = false;
-}
+  <text x="765" y="579" font-family="Arial, sans-serif" font-size="26" font-weight="700">
+    <tspan fill="#17324d">They </tspan><tspan fill="#7960a8">are having </tspan><tspan fill="#c87540">their computer</tspan>
+  </text>
+  <text x="765" y="612" font-family="Arial, sans-serif" font-size="26" font-weight="700">
+    <tspan fill="#287d79">delivered</tspan><tspan fill="#17324d"> tomorrow.</tspan>
+  </text>
+  <line x1="765" y1="628" x2="1330" y2="628" stroke="#e9efed" stroke-width="2"/>
 
-function nextQuestion() {
-  currentQ++;
-  renderQuiz();
-}
+  <rect x="765" y="644" width="565" height="76" rx="16" fill="#fff7e7"/>
+  <text x="787" y="671" font-family="Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="1.2" fill="#9a7025">СМЫСЛ</text>
+  <text x="787" y="700" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#17324d">Им завтра доставят компьютер.</text>
 
-function resetQuiz() {
-  currentQ = 0;
-  score = 0;
-  renderQuiz();
-}
+  <text x="765" y="755" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#17324d">Фокус — на организованной услуге:</text>
+  <rect x="765" y="771" width="565" height="48" rx="12" fill="#f3f6f8"/>
+  <text x="787" y="801" font-family="Arial, sans-serif" font-size="15" fill="#526875">Они устроили доставку; курьер здесь не назван.</text>
+  <circle cx="775" cy="841" r="7" fill="#f1c76e"/>
+  <text x="794" y="847" font-family="Arial, sans-serif" font-size="16" fill="#526875">tomorrow показывает, когда будет услуга.</text>
 
-renderQuiz();
+  <!-- Meaning contrast -->
+  <rect x="80" y="898" width="1280" height="254" rx="26" fill="#e9f0f3"/>
+  <text x="112" y="941" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#17324d">КТО ВЫПОЛНЯЕТ ДЕЙСТВИЕ? СРАВНИ СМЫСЛ</text>
+  <rect x="110" y="965" width="560" height="105" rx="17" fill="#ffffff"/>
+  <circle cx="143" cy="1017" r="17" fill="#e5ebf5"/>
+  <path d="M135 1020 l7 -8 7 8 M142 1012 v14" fill="none" stroke="#607995" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="174" y="1008" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#17324d">Tom repaired his car.</text>
+  <text x="174" y="1042" font-family="Arial, sans-serif" font-size="18" fill="#526875">Том сам починил автомобиль.</text>
 
-// Fade in on scroll
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1 });
+  <rect x="690" y="965" width="640" height="105" rx="17" fill="#ffffff"/>
+  <circle cx="724" cy="1017" r="17" fill="#dcefeb"/>
+  <path d="M716 1020 l7 -8 7 8 M723 1012 v14" fill="none" stroke="#287d79" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="755" y="1008" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#17324d">Tom had his car repaired.</text>
+  <text x="755" y="1042" font-family="Arial, sans-serif" font-size="18" fill="#526875">Том организовал ремонт — сделал механик.</text>
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-// Nav active on scroll
-const sections = ['usage','structure','builder','tenses','examples','quiz'];
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(id => {
-    const sec = document.getElementById(id);
-    if (sec && sec.getBoundingClientRect().top < 200) current = id;
-  });
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.classList.remove('active');
-    if (btn.getAttribute('onclick')?.includes(current)) btn.classList.add('active');
-  });
-});
-</script>
-
+  <rect x="110" y="1091" width="1220" height="40" rx="12" fill="#d9e7e8"/>
+  <circle cx="133" cy="1111" r="8" fill="#287d79"/>
+  <text x="153" y="1117" font-family="Arial, sans-serif" font-size="16" fill="#294653">Исполнителя обычно не упоминают: он неважен или понятен из контекста.</text>
+</svg>
+  </main>
 </body>
 </html>
